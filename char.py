@@ -1,5 +1,7 @@
 __author__ = 'Jager'
 import random
+from clothtype import ClothType
+from hands import Hands
 
 class Character:
     def __init__(self, cname, crace, cclass):
@@ -9,8 +11,8 @@ class Character:
         self.health=100
         self.armor=0
         self.power=100
-        self.clothes = {'hands': None, 'head':None, 'chest':None, 'legs': None, 'feet': None, 'shoulders': None}
-        self.weapons = {'left':None, 'right':None}
+        self.clothes = {ClothType.chest: None, ClothType.head:None, ClothType.hands:None, ClothType.legs: None, ClothType.feet: None, ClothType.shoulders: None}
+        self.weapons = {Hands.left: None, Hands.right: None}
 
 
     def __str__(self):
