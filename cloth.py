@@ -1,9 +1,8 @@
 __author__ = 'Jager'
+from equipment import Equipment
 
-class Cloth:
+class Cloth (Equipment):
     def __init__(self, name, armor):
-        self.name=name
+        super(Cloth, self).__init__(name)
         self.armor=armor
 
-    def __eq__(self, other):
-        return self.name==other.name
