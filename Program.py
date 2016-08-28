@@ -1,8 +1,7 @@
 __author__ = 'Jager'
+from char import Character
+
+c1 = Character('Jager', 'Human', 'Rouge')
+print(c1.__str__())
 
 
-class Character:
-    def __init__(self, cname, crace, cclass):
-        self.cname=cname
-        self.crace=crace
-        self.cclass=cclass
