@@ -2,19 +2,59 @@ __author__ = 'Jager'
 from char import Character
 from cloth import Cloth
 from weapon import Weapon
+import random
+from time import sleep
 
-c1 = Character('Jager', 'Human', 'Rouge')
+jager = Character('Jager', 'Human', 'Rouge')
+meister = Character('Meister', 'Undead', 'Warrior')
 
-w_sword = Weapon('Sword', 30)
-c1.setweapon('left', w_sword)
-cloth_chest=Cloth('Chestplate', 80)
-c1.setcloth('chest', cloth_chest)
-
-
-
+w_sword1 = Weapon('Sword of Oblivion', 50)
+w_sword2 = Weapon('Warglaive of Azzinoth', 30)
+w_axe1 = Weapon('Axe of Destruction', 60)
+w_dagger1 = Weapon('Dagger of Time', 20)
 
 
-print(c1.__str__())
+jager.setweapon('right', w_dagger1)
+jager.setweapon('left', w_axe1)
+
+jager.setcloth('chest', Cloth('Leather chestpiece', 60))
+jager.setcloth('legs', Cloth('Leather leggins', 50))
+jager.setcloth('hands', Cloth('Leather gloves', 30))
+jager.setcloth('feet', Cloth('Leather boots', 35))
+
+
+meister.setweapon('right', w_sword1)
+meister.setweapon('left', w_sword2)
+
+meister.setcloth('chest', Cloth('Steel chestplate', 120))
+meister.setcloth('legs', Cloth('Steel leggins', 70))
+
+def hitdamage(attacker, dmg):
+    print('{} attacked with {} damage'.format(attacker.cname, dmg))
+
+
+print(jager.__str__())
+print(meister.__str__())
+print('======= Let the fight begin! =======')
+while(jager.isalive() and meister.isalive()):
+    if(random.randint(1,100) < 50):
+        attacker = jager
+        opponent = meister
+    else:
+        attacker = meister
+        opponent = jager
+    print('ATTACKER: ' + attacker.state())
+    print('OPPONENT: ' + opponent.state())
+    dmg = attacker.hit(opponent, hitdamage)
+    print('{} got {} damage from {}'.format(opponent.cname,  str(dmg), attacker.cname))
+    dmg = opponent.hit(attacker, hitdamage)
+    print('{} got {} damage from {}'.format(attacker.cname, str(dmg), opponent.cname ))
+    print()
+    sleep(1.2)
+
+
+print(jager.state())
+print(meister.state())
 
 
 
