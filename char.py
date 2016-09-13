@@ -2,20 +2,20 @@ __author__ = 'Jager'
 import random
 from clothtype import ClothType
 from hands import Hands
+import json
+
 
 class Character:
     def __init__(self, cname, crace, cclass):
-        self.cname=cname
-        self.crace=crace
-        self.cclass=cclass
+        self.cname = cname
+        self.crace = crace
+        self.cclass = cclass
         self.maxhp = 1000
-        self.health=self.maxhp
-        self.armor=0
-        self.power=100
+        self.health = self.maxhp
+        self.armor = 0
+        self.power = 100
         self.clothes = {ClothType.chest: None, ClothType.head:None, ClothType.hands:None, ClothType.legs: None, ClothType.feet: None, ClothType.shoulders: None}
         self.weapons = {Hands.left: None, Hands.right: None}
-
-
 
     def __str__(self):
         return 'Character > NAME: {}; RACE: {}; CLASS: {}; HEALTH: {}; ARMOR: {}; POWER: {}'.format(self.cname, self.crace, self.cclass, self.health, self.armor, self.power)
@@ -26,9 +26,8 @@ class Character:
     def isalive(self):
         return self.health > 0
 
-
     def setcloth(self, type, cloth):
-        if(type in self.clothes.keys()):
+        if(type in self.clothes.keys()  and type.name == cloth.type):
             if(self.clothes[type] != None): self.removecloth(type)
             self.clothes[type]=cloth
             self.armor += cloth.armor

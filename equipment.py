@@ -1,4 +1,5 @@
 __author__ = 'Jager'
+import json
 
 class Equipment:
     def __init__(self, name):
@@ -10,3 +11,8 @@ class Equipment:
 
     def __str__(self):
         return self.name
+
+    @staticmethod
+    def fromJSON(jsonstr):
+        'Returns a dict from json string'
+        return json.loads(jsonstr)

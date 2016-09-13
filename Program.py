@@ -10,9 +10,21 @@ from classes.warrior import Warrior
 from classes.priest import Priest
 from classes.mage import Mage
 from classes.rouge import Rouge
+from dbhandler.filedb import FileDatabase
+from dbhandler.serializer import Serializer
 
-meister = Warrior('Meister', 'Human', 'Warrior')
-jager = Priest('Jager', 'Undead', 'Priest')
+
+sc = Serializer("db/clothes.db")
+sw = Serializer("db/weapons.db")
+
+c1 = Cloth(ClothType.chest, 'Leather chestpiece', 60)
+c2 = Cloth(ClothType.legs, 'Leather leggins', 50)
+c3 = Cloth(ClothType.hands, 'Leather gloves', 30)
+c4 = Cloth(ClothType.feet, 'Leather boots', 35)
+c5 = Cloth(ClothType.chest, 'Cloak of Invincibility', 50, 60)
+c6 = Cloth(ClothType.legs, 'Trausers of Medivh', 40, 25)
+c7 = Cloth(ClothType.head, 'Hood of Valor', 20, 30)
+c8 = Cloth(ClothType.feet, 'Boots of Magic', 10, 15)
 
 w_sword1 = Weapon('Sword of Oblivion', 50)
 w_sword2 = Weapon('Warglaive of Azzinoth', 30)
@@ -21,21 +33,31 @@ w_dagger1 = Weapon('Dagger of Time', 20)
 w_staff1 = Weapon('Staff of Gandalf', 80)
 
 
+# def saveobjects(serializer, objects):
+#     for o in objects:
+#         serializer.saveobject(o)
+#
+# saveobjects(sc, [c1, c2, c3, c4, c5, c6, c7, c8])
+# saveobjects(sw, [w_sword1, w_sword2, w_axe1, w_dagger1, w_staff1])
+
+meister = Warrior('Meister', 'Human', 'Warrior')
+jager = Priest('Jager', 'Undead', 'Priest')
+
 meister.setweapon(Hands.right, w_dagger1)
 meister.setweapon(Hands.left, w_axe1)
 
-meister.setcloth(ClothType.chest, Cloth('Leather chestpiece', 60))
-meister.setcloth(ClothType.legs, Cloth('Leather leggins', 50))
-meister.setcloth(ClothType.hands, Cloth('Leather gloves', 30))
-meister.setcloth(ClothType.feet, Cloth('Leather boots', 35))
+meister.setcloth(ClothType.chest, c1)
+meister.setcloth(ClothType.legs, c2)
+meister.setcloth(ClothType.hands, c3)
+meister.setcloth(ClothType.feet, c4)
 
 
 jager.setweapon(Hands.right, w_staff1)
 
-jager.setcloth(ClothType.chest, Cloth('Cloak of Invincibility', 50, 60))
-jager.setcloth(ClothType.legs, Cloth('Trausers of Medivh', 40, 25))
-jager.setcloth(ClothType.head, Cloth('Hood of Valor', 20, 30))
-jager.setcloth(ClothType.feet, Cloth('Boots of Magic', 10, 15))
+jager.setcloth(ClothType.chest, c5)
+jager.setcloth(ClothType.legs, c6)
+jager.setcloth(ClothType.head, c7)
+jager.setcloth(ClothType.feet, c8)
 
 def hitdamage(attacker, dmg):
     print('{} attacked with {} damage'.format(attacker.cname, dmg))
