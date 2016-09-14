@@ -15,9 +15,17 @@ class Warrior (Character):
         if(self.isalive() and self.rage >= ragecost):
             wr = self.getweapon(Hands.right)
             wl = self.getweapon(Hands.left)
-            pow = wr.power + wl.power
+            if wr is None:
+                rp = 0
+            else:
+                rp = wr.power
+            if wl is None:
+                lp = 0
+            else:
+                lp = wl.power
+            pwr = rp + lp
             specatt_callback(self, '[Heroic Strike]')
-            damage = random.randint(int(self.power/2), self.power) + pow
+            damage = random.randint(int(self.power/2), self.power) + pwr
             hitdamage_callback(self, damage)
             self.rage -= ragecost
             return opponent.hurt(damage)

@@ -32,6 +32,8 @@ class Character:
             self.clothes[type]=cloth
             self.armor += cloth.armor
             if(self.hasmana()): self.maxmana += cloth.plusmana
+            return True
+        return False
 
     def removecloth(self, type):
         if(type in self.clothes.keys()):
@@ -39,18 +41,24 @@ class Character:
             self.armor -= cloth.armor
             self.clothes[type] = None
             if(self.hasmana()): self.maxmana -= cloth.plusmana
+            return True
+        return False
 
     def setweapon(self, hand, weapon):
         if(hand in self.weapons.keys()):
             if(self.weapons[hand] != None): self.removeweapon(hand)
             self.weapons[hand] = weapon
             self.power += weapon.power
+            return True
+        return False
 
     def removeweapon(self, hand):
         if(hand in self.weapons.keys()):
             weapon = self.weapons[hand]
             self.power -= weapon.power
             self.weapons[hand] = None
+            return True
+        return False
 
     def getweapon(self, hand):
         if(hand in self.weapons.keys()):

@@ -9,4 +9,10 @@ class ClothType (Enum):
     legs=5
     feet=6
 
+    def fromstring(stringvalue):
+        for e in ClothType:
+            if e.name == stringvalue:
+                return e
+        return None
+
 
