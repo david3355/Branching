@@ -4,5 +4,5 @@
 {"name": "Leather boots", "armor": 35, "plusmana": 0, "type": "feet"}
 {"name": "Cloak of Invincibility", "armor": 50, "plusmana": 60, "type": "chest"}
 {"name": "Trausers of Medivh", "armor": 40, "plusmana": 25, "type": "legs"}
-{"name": "Hood of Valor", "armor": 20, "plusmana": 30, "type": "hands"}
+{"name": "Hood of Valor", "armor": 20, "plusmana": 30, "type": "head"}
 {"name": "Boots of Magic", "armor": 10, "plusmana": 15, "type": "feet"}

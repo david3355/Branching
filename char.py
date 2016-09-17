@@ -23,12 +23,20 @@ class Character:
     def state(self):
         return 'NAME: {}; HEALTH: {}'.format(self.cname, self.health)
 
+    def str_equipment(self):
+        estr = "Equipment:\n"
+        for key, value in self.weapons.items():
+            estr += "[{}]: {}\n".format(key.name, value)
+        for key, value in self.clothes.items():
+            estr += "[{}]: {}\n".format(key.name, value)
+        return estr + "\n"
+
     def isalive(self):
         return self.health > 0
 
     def setcloth(self, type, cloth):
         if(type in self.clothes.keys()  and type.name == cloth.type):
-            if(self.clothes[type] != None): self.removecloth(type)
+            if not(self.clothes[type] is None): self.removecloth(type)
             self.clothes[type]=cloth
             self.armor += cloth.armor
             if(self.hasmana()): self.maxmana += cloth.plusmana
@@ -46,7 +54,7 @@ class Character:
 
     def setweapon(self, hand, weapon):
         if(hand in self.weapons.keys()):
-            if(self.weapons[hand] != None): self.removeweapon(hand)
+            if not(self.weapons[hand] is None): self.removeweapon(hand)
             self.weapons[hand] = weapon
             self.power += weapon.power
             return True

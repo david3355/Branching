@@ -8,7 +8,7 @@ from char import Character
 from clothtype import ClothType
 from hands import Hands
 import random
-
+import utility.utility as util
 
 class GameManager:
     def __init__(self):
@@ -31,14 +31,13 @@ class GameManager:
         while True:
             chosen = self.char_choose()
             if chosen is None: break
-            while True:
-                setanother = self.set_cloth(chosen)
-                if not(setanother): break
+            self.set_cloth(chosen)
             while True:
                 setanother = self.set_weapons(chosen)
                 if not(setanother): break
 
     def char_choose(self):
+        util.clear_console()
         self.show_players()
         chosen = input("\nChose a character: " )
         try:
@@ -52,43 +51,58 @@ class GameManager:
         else:
             return None
 
-    def set_cloth(self, character):
-        self.show_clothes()
-        chosen = input("\nChoose a cloth: ")
-        try:
-            chosen = int(chosen)
-        except ValueError:
-            print("Nothing is chosen")
-            return False
-        if 0 <= chosen < len(self.equipmanager.clothes):
-            chosencloth = self.equipmanager.clothes[chosen]
-            if character.setcloth(ClothType.fromstring(chosencloth.type), chosencloth):
-                print("\n-{}- is set to {}\n".format(chosencloth.name, character.cname))
+    def checkinput(self, inputstring, character):
+        if inputstring == "e":
+            util.clear_console()
+            print(character.str_equipment())
             return True
-        else:
-            return False
+        return False
+
+    def set_cloth(self, character):
+        util.clear_console()
+        while True:
+            self.show_clothes()
+            chosen = input("\nChoose a cloth [cloth id]: ")
+            if self.checkinput(chosen, character):
+                continue
+            try:
+                util.clear_console()
+                chosen = int(chosen)
+            except ValueError:
+                print("Nothing is chosen")
+                break
+            if 0 <= chosen < len(self.equipmanager.clothes):
+                chosencloth = self.equipmanager.clothes[chosen]
+                if character.setcloth(ClothType.fromstring(chosencloth.type), chosencloth):
+                    print("\n-{}- is set to {}\n".format(chosencloth.name, character.cname))
+            else:
+                break
 
     def set_weapons(self, character):
-        self.show_weapons()
-        chosen = input("\nChoose a weapon: [weapon id] [hand - left(0), right(1)] ")
-        try:
-            values = chosen.split(' ')
-            chosen = int(values[0])
-            hand = int(values[0])
-            if(hand == 0):
-                hand = Hands.left
+        util.clear_console()
+        while True:
+            self.show_weapons()
+            chosen = input("\nChoose a weapon [weapon id] [hand - left(0), right(1)]: ")
+            if self.checkinput(chosen, character):
+                continue
+            try:
+                util.clear_console()
+                values = chosen.split(' ')
+                chosen = int(values[0])
+                hand = int(values[1])
+                if(hand == 0):
+                    hand = Hands.left
+                else:
+                    hand = Hands.right
+            except:
+                print("Nothing is chosen")
+                break
+            if 0 <= chosen < len(self.equipmanager.weapons):
+                chosenweapon = self.equipmanager.weapons[chosen]
+                if(character.setweapon(hand, chosenweapon)):
+                     print("\n-{}- is set to {}\n".format(chosenweapon.name, character.cname))
             else:
-                hand = Hands.right
-        except:
-            print("Nothing is chosen")
-            return False
-        if 0 <= chosen < len(self.equipmanager.weapons):
-            chosenweapon = self.equipmanager.weapons[chosen]
-            if(character.setweapon(hand, chosenweapon)):
-                 print("\n-{}- is set to {}\n".format(chosenweapon.name, character.cname))
-            return True
-        else:
-            return False
+                break
 
     def show_players(self):
         i = 0

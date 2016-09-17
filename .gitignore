@@ -1,4 +1,2 @@
 .idea/*
-__pycache__/*
-classes/__pycache__/*
-dbhandler/__pycache__/*
+**/__pycache__/*
